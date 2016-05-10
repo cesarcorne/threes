@@ -54,30 +54,38 @@ public class ThreesController {
 			return false;
 		
 		boolean modified = false;
-		for(int j=0; j<ThreesBoard.COLUMNS ; j++){
+		for(int j=0; j<ThreesBoard.COLUMNS; j++){
 			//can_combine iff the last two tiles are not free and there is no free tile in the middle.
-			boolean can_combine = !board.get_tile(0, j).isFree() &&
+			boolean can_combine = !board.get_tile(0, j).isFree() && 
 								  !board.get_tile(1, j).isFree() &&
-								  !(board.get_tile(2, j).isFree() && !board.get_tile(3, j).isFree());
-			if(!can_combine){
+								  !(board.get_tile(2, j).isFree() && 
+								  !board.get_tile(3, j).isFree());
+			/*boolean can_combine = !board.get_tile(0, j).isFree();
+			can_combine &= !board.get_tile(1, j).isFree();
+			boolean aux = board.get_tile(2, j).isFree();
+			aux &= !board.get_tile(3, j).isFree();
+			can_combine &= !aux;*/
+			if(!can_combine){//move the tile to fill the free spaces
 				int i=0;
 				while(!board.get_tile(i, j).isFree())
 					i++;
-				for(int k=i+1; k>ThreesBoard.ROWS-1 ; k++){
+				for(int k=i+1; k<ThreesBoard.ROWS ; k++){
 					if(!board.get_tile(k, j).isFree())
 						movedColumns.add(j);
 					board.set_tile(k-1, j, board.get_tile(k, j).getValue());
 				}
+				board.set_tile(ThreesBoard.ROWS-1,j ,0);//empty the last position
+				modified = true; //fix bug
 			}else{//combine just once. Here there is no free tile in the middle
 				boolean updated = false;
-				for(int i=0; i<ThreesBoard.ROWS && !updated ; i++){
+				for(int i=0; i<ThreesBoard.ROWS-1 && !updated ; i++){
 					if(board.tiles_can_combine(board.get_tile(i, j), board.get_tile(i+1, j))){
 						//produce first combination
 						ThreesTile t = board.get_tile(i, j).combine_tile(board.get_tile(i+1, j));
 						board.set_tile(i, j, t.getValue());
-						//move anything else to left in the same row
-						for(int k=i+2; k<ThreesBoard.ROWS; k++){
-							board.set_tile(k-1, j, board.get_tile(k, j).getValue());
+						//move anything else up in the same row
+						for(int k=i+1; k<ThreesBoard.ROWS-1; k++){
+							board.set_tile(k, j, board.get_tile(k+1, j).getValue());
 						}
 						movedColumns.add(j);
 						board.set_tile(ThreesBoard.ROWS-1,j ,0);//empty the last position
@@ -85,7 +93,6 @@ public class ThreesController {
 						updated = true;
 					}
 				}
-				
 			}
 		}
 		loadNextTileOnColumns(true);
@@ -117,7 +124,8 @@ public class ThreesController {
 					if(!board.get_tile(k, j).isFree())
 						movedColumns.add(j);
 					board.set_tile(k+1, j, board.get_tile(k, j).getValue());
-				}			
+				}
+				board.set_tile(0,j ,0);
 			}
 			else{//combine just once. Here there is no free tile in the middle
 				boolean updated = false;
@@ -133,6 +141,7 @@ public class ThreesController {
 						movedColumns.add(j);
 						board.set_tile(0,j ,0);//empty the last position
 						//no actualiza la variable updated lo cual permitiria hacer dos cambios en la misma columna
+						updated = true;
 						modified = true;
 					}
 				}
