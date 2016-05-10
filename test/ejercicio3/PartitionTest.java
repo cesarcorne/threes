@@ -165,7 +165,7 @@ public class PartitionTest {
 	}
 	
 	@Test
-	public void B1B3(){
+	public void testB1B3(){
 		ThreesBoard board = new ThreesBoard();
 		board.set_tile(0, 0, 1);
 		board.set_tile(0, 1, 3);
@@ -232,7 +232,7 @@ public class PartitionTest {
 	}
 	
 	@Test
-	public void B2B1(){
+	public void testB2B1(){
 		ThreesBoard board = new ThreesBoard();
 		board.set_tile(0, 0, 1);
 		board.set_tile(0, 1, 3);
@@ -299,7 +299,7 @@ public class PartitionTest {
 	}
 	
 	@Test
-	public void B3B1(){
+	public void testB3B1(){
 		ThreesBoard board = new ThreesBoard();
 		board.set_tile(0, 0, 3);
 		board.set_tile(0, 1, 3);
