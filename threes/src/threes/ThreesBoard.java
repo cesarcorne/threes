@@ -30,9 +30,7 @@ public class ThreesBoard {
 				random_tile_col = getRandom(COLUMNS);	
 			}
 			//set a random value
-			int value = getRandom(3);
-			while (value == 0)
-				value = getRandom(3);
+			int value = getRandom(3)+1;
 			set_tile(random_tile_row, random_tile_col, value);
 		}
 	}

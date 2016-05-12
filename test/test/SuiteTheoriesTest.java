@@ -35,16 +35,16 @@ public class SuiteTheoriesTest {
 	}
 	
 	@Theory
-	public void testCanMoveOurMoveUp(@BoardGen(count_boards=10) ThreesBoard b) {
-		ThreesController c = new ThreesController(b);
-		assumeTrue(c.getBoard().can_move_up());
+	public void testCanMoveOurMoveUp(@BoardGen(count_boards=10) ThreesBoard board) {
+		ThreesController c = new ThreesController(board);
+		assumeTrue(board.can_move_up());
 		assertThat(c.move_up(), is(equalTo(true)));
 	}
 
 	@Theory
-	public void testCanMoveAnotherMoveUp(@BoardGen(count_boards=10) ThreesBoard b){
-		AnotherThreesController c = new AnotherThreesController(b);
-		assumeTrue(c.getBoard().can_move_up());
-		assertThat(c.move_up(), is(equalTo(true)));
+	public void testCanMoveAnotherMoveUp(@BoardGen(count_boards=10) ThreesBoard board){
+		AnotherThreesController c2 = new AnotherThreesController(board);
+		assumeTrue(board.can_move_up());
+		assertThat(c2.move_up(), is(equalTo(true)));
 	}
 }
