@@ -14,6 +14,18 @@ import threes.AnotherThreesController;
 import threes.ThreesBoard;
 import threes.ThreesController;
 
+/**
+ * esta suite de tests es para el ejercicio 6,
+ * en BoardGen y BoardGenSupplier se encuentra el generador pedido en el ejercicio
+ * Los tests: testCountTiles, testNotFinished y testLimitOfNewTiles
+ * son utilizados para testear el generador de tableros
+ * 
+ * El test: testCanMoveOurMoveUp testea nuestra implementacion de move_up
+ * 
+ * El test: testCanMoveAnotherMoveUp chequea exactamente lo mismo
+ * pero con el .class dado, el mismo no pasa el test.
+ * */
+
 @RunWith(Theories.class)
 public class SuiteTheoriesTest {
 

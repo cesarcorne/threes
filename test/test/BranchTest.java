@@ -14,12 +14,14 @@ public class BranchTest {
 
 	/**
 	 * En esta suite de test intentaremos mejorar el branch coverage,
-	 * el cual el mismo nos dio que perdiamos 3 branches en la siguiente 
+	 * el cual al medirlo con la suite del ejercicio1 
+	 * nos dio que perdiamos 3 branches en la siguiente 
 	 * condicion del move_up:
 	 * boolean can_combine = !board.get_tile(0, j).isFree() &&
 	 *	!board.get_tile(1, j).isFree() &&
 	 *	!(board.get_tile(2, j).isFree() && !board.get_tile(3, j).isFree());
 	 * */
+	
 	@Test(timeout=100)
 	public void test1() {
 		ThreesBoard board = new ThreesBoard();
@@ -43,4 +45,5 @@ public class BranchTest {
 		ThreesController controller = new ThreesController(board);
 		assertThat(controller.move_up(), is(equalTo(true)));
 	}
+	
 }

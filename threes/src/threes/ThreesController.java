@@ -305,6 +305,7 @@ public class ThreesController {
 				if (res != null) {
 					board = res.getKey();
 					nextTileValue = res.getValue();
+					return true;
 				}
 			}
 		} catch (IOException e) {

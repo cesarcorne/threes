@@ -1,10 +1,15 @@
 package test;
 
 import static org.junit.Assert.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.easymock.EasyMock.*;
 import static org.hamcrest.Matchers.*;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -115,15 +120,23 @@ public class MockTests {
 		verify(manager);
 	}
 	
-	@Test(expected = NullPointerException.class)
-	public void test8() throws IOException {
+	@Test
+	public void test15() throws IOException {
 		String folderName = "carpeta";
-		String fileName = null;
+		String fileName = "mijuego.ths";
+		HashMap<ThreesBoard, Integer> map = new HashMap<ThreesBoard, Integer>();
+		map.put(controller.getBoard(), controller.getNextTileValue());
+		//map.put(controller.getBoard(), controller.getNextTileValue());
+		Map.Entry<ThreesBoard, Integer> a = (Map.Entry<ThreesBoard, Integer>) map.entrySet().iterator().next();
+		//a.setValue(map.values().iterator().next());
+		
 		expect(manager.setFolder(folderName)).andReturn(true);
-		IOException e = new IOException();
-		expect(manager.loadFromFile(fileName)).andThrow(e);
+		expect(manager.loadFromFile(fileName)).andReturn(a);
 		replay(manager);
-		controller.loadGame(folderName, fileName);
+		assertThat(controller.loadGame(folderName, fileName), is(equalTo(true)));
 		verify(manager);
+		
 	}
+	
+	
 }

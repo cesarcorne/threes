@@ -11,7 +11,7 @@ public class ThreesTile {
 	}
 	
 	public ThreesTile(int v) {
-		if(is_valid_value(v))
+		if(is_valid_value(v)) 
 			value = v;
 		else
 			throw new IllegalArgumentException("The value should be value is either 1, 2 or 3 * 2^i.");

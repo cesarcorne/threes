@@ -10,12 +10,20 @@ import threes.ThreesBoard;
 import threes.ThreesController;
 import threes.ThreesTile;
 
+/**
+ * Esta suite de test se corresponde con el ejercicio 7,
+ * la misma hace test de integracion sobre la clase ThreesController,
+ * buscando conseguir un %70 de covertura de nodos en los metodos move_up,
+ * move_down, move_left, move_right
+ * */
+
 public class IntegrationTests {
 
 	/**
-	 * Check that if we use the default constructor of the controller, 
-	 * then, the board will have nine tiles and we can move on all directions
-	 * at least one time 
+	 * Si usamos el constructor por defecto del controller,
+	 * entonces, el tablero tiene que tener 9 tiles y podemos movernos en todas
+	 * las direcciones al menos una vez
+	 * 
 	 * */
 	@Test
 	public void testDefaultControllerConstructor() {
@@ -29,8 +37,9 @@ public class IntegrationTests {
 
 	
 	/**
-	 * If the board is empty, I can move in any direction, but the board 
-	 * doesn't have anything to move
+	 * Si el tablero que seteamos al controlador es vacio, 
+	 * podemos movernos en cualquier direccion pero el tablero no se modifica
+	 * (no hay nada para mover)
 	 * */
 	@Test
 	public void testEmptyBoard() {
@@ -53,7 +62,11 @@ public class IntegrationTests {
 	}
 	
 	
-	
+	/**
+	 * Creamos un nuevo tablero, para luego moverse a la izquierda y despues
+	 * dos veces abajo, luego de cada movimiento se chequea el estado del 
+	 * tablero
+	 * */
 	@Test
 	public void testMoveLDD() {
 		ThreesBoard board = new ThreesBoard();
@@ -86,6 +99,11 @@ public class IntegrationTests {
 		assertThat(controller.getBoard().get_tile(3, 1).getValue(), is(equalTo(6)));
 	}
 	
+	/**
+	 * Creamos un nuevo tablero, para luego moverse arriba y despues
+	 * dos veces a la derecha, luego de cada movimiento se chequea el estado del 
+	 * tablero
+	 * */
 	@Test
 	public void testMoveURR() {
 		ThreesBoard board = new ThreesBoard();
@@ -126,9 +144,14 @@ public class IntegrationTests {
 		assertThat(controller.move_right(), is(equalTo(true)));
 		assertThat(controller.getBoard().get_tile(0, 3).getValue(), is(equalTo(3)));	
 	}
-	
+
+	/**
+	 * Creamos un nuevo tablero, para luego moverse abajo,
+	 * para luego comprobar que el tamblero no puede realizar moviemientos
+	 * y por lo tanto el juego finalizo
+	 * */
 	@Test
-	public void testMoveUWithoutR() {
+	public void testMoveUThenFinished() {
 		ThreesBoard board = new ThreesBoard();
 		
 		board.set_tile(0, 0, 6);

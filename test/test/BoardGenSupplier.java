@@ -9,6 +9,13 @@ import org.junit.experimental.theories.PotentialAssignment;
 
 import threes.ThreesBoard;
 
+/**
+ * Generador de parametros:
+ * el mismo genera la cantidad solicitada por el usuario del generador,
+ * ademas crea los tableros con 9 elementos 
+ * (como lo hace por defecto el juego al comenzar)
+ * */
+
 public class BoardGenSupplier extends ParameterSupplier {
 
 	@Override
