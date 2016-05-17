@@ -210,7 +210,7 @@ public class PartitionTest {
 		assertThat(t1.getValue(), is(equalTo(3)));
 		assertThat(t2.getValue(), is(equalTo(6)));
 		assertThat(t3.getValue(), is(equalTo(12))); 
-		//assertThat(t4.getValue(), is(equalTo(0)));
+		assertThat(t4.getValue(), is(equalTo(0)));
 		
 		//check values of third column
 		t1 = auxBoard.get_tile(0, 2);
@@ -220,7 +220,6 @@ public class PartitionTest {
 		assertThat(t1.getValue(), is(equalTo(12)));
 		assertThat(t2.getValue(), is(equalTo(1)));
 		assertThat(t3.getValue(), is(equalTo(1))); 
-		assertThat(t4.getValue(), is(equalTo(0)));
 		
 		//check values of fourth column
 		t1 = auxBoard.get_tile(0, 3);

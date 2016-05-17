@@ -30,8 +30,11 @@ public class MockTests {
 		controller.setSaveManager(manager);
 	}
 	
+	/**
+	 * Test que chequea el metodo SaveGame mediante un caso en el cual es válido guardar
+	 * */
 	@Test
-	public void test() throws IOException {
+	public void testCorrectSaveGame() throws IOException {
 		String folderName = "carpeta";
 		String fileName = "mijuego";
 		expect(manager.setFolder(folderName)).andReturn(true);
@@ -41,41 +44,55 @@ public class MockTests {
 		assertThat(controller.saveGame(folderName, fileName), is(equalTo(true)));
 	}
 
+	/**
+	 * Test que chequea el metodo SaveGame mediante un caso en el cual
+	 * no es válido guardar, ya que esta mal el nombre de archivo dado
+	 * */
 	@Test
-	public void test1() throws IOException {
+	public void testBadFileNameSaveGame() throws IOException {
 		String folderName = "carpeta";
 		String fileName = "mijuego.ths";
 		expect(manager.setFolder(folderName)).andReturn(true);
-	//	expect(manager.saveToFile(controller.getBoard(), controller.getNextTileValue(), fileName)).andReturn(false);
 		replay(manager);
 		
 		assertThat(controller.saveGame(folderName, fileName), is(equalTo(false)));
 	}
 	
+	/**
+	 * Test que chequea el metodo SaveGame mediante un caso en el cual
+	 * no es válido guardar, ya que la carpeta seleccionada no es válida
+	 * */
 	@Test
-	public void test2() throws IOException {
+	public void testUnexistedFolderSaveGame() throws IOException {
 		String folderName = "carpeta";
 		String fileName = "mijuego.ths";
 		expect(manager.setFolder(folderName)).andReturn(false);
-	//	expect(manager.saveToFile(controller.getBoard(), controller.getNextTileValue(), fileName)).andReturn(false);
 		replay(manager);
 		
 		assertThat(controller.saveGame(folderName, fileName), is(equalTo(false)));
 	}
 	
-	@Test//(expected=IOException.class)
-	public void test3() throws IOException {
+	/**
+	 * Test que chequea el metodo SaveGame mediante un caso en el cual 
+	 * setFolder del mock nos retorna una IOException
+	 * */
+	@Test
+	public void testSetFolderIOExceptionSaveGame() throws IOException  {
 		String folderName = "carpeta";
 		String fileName = "mijuego";
 		IOException e = new IOException();
 		expect(manager.setFolder(folderName)).andThrow(e);
 		replay(manager);
 		controller.saveGame(folderName, fileName);
-		//verify(manager);
+		verify(manager);
 	}
 	
+	/**
+	 * Test que chequea el metodo LoadGame mediante un caso en el cual
+	 * no es válido cargar un juego, ya que la carpeta dada no es correcta
+	 * */
 	@Test
-	public void test4() throws IOException {
+	public void testUnexistedFolderToLoad() throws IOException {
 		String folderName = "carpeta";
 		String fileName = "mijuego.ths";
 		
@@ -85,8 +102,12 @@ public class MockTests {
 		assertThat(controller.loadGame(folderName, fileName), is(equalTo(false)));
 	}
 	
+	/**
+	 * Test que chequea el metodo LoadGame mediante un caso en el cual
+	 * no es válido cargar un juego, ya que el archivo dado no es correcto
+	 * */
 	@Test
-	public void test5() throws IOException {
+	public void testBadFileNameLoad() throws IOException {
 		String folderName = "carpeta";
 		String fileName = "mijuego";
 		
@@ -96,8 +117,12 @@ public class MockTests {
 		assertThat(controller.loadGame(folderName, fileName), is(equalTo(false)));
 	}
 	
+	/**
+	 * Test que chequea el metodo LoadGame mediante un caso en el cual
+	 * no es válido cargar un juego, ya que el mismo es null
+	 * */
 	@Test
-	public void test6() throws IOException {
+	public void testNullFileLoadGame() throws IOException {
 		String folderName = "carpeta";
 		String fileName = "mijuego.ths";
 		
@@ -108,8 +133,12 @@ public class MockTests {
 		verify(manager);
 	}
 	
+	/**
+	 * Test que chequea el metodo LoadGame mediante un caso en el cual
+	 * LoadFromFile del mock nos retorna una IOException
+	 * */
 	@Test
-	public void test7() throws IOException {
+	public void testIOExceptionOnLoadFromFile() throws IOException {
 		String folderName = "carpeta";
 		String fileName = "mijuego.ths";
 		expect(manager.setFolder(folderName)).andReturn(true);
@@ -120,20 +149,26 @@ public class MockTests {
 		verify(manager);
 	}
 	
+	/**
+	 * Test que chequea el metodo LoadGame mediante un caso en el cual
+	 * es válido cargar un juego y el mismo no es null
+	 * */
 	@Test
-	public void test15() throws IOException {
+	public void testCorrectLoadGame() throws IOException {
 		String folderName = "carpeta";
 		String fileName = "mijuego.ths";
 		HashMap<ThreesBoard, Integer> map = new HashMap<ThreesBoard, Integer>();
+
 		map.put(controller.getBoard(), controller.getNextTileValue());
-		//map.put(controller.getBoard(), controller.getNextTileValue());
 		Map.Entry<ThreesBoard, Integer> a = (Map.Entry<ThreesBoard, Integer>) map.entrySet().iterator().next();
-		//a.setValue(map.values().iterator().next());
 		
 		expect(manager.setFolder(folderName)).andReturn(true);
 		expect(manager.loadFromFile(fileName)).andReturn(a);
+		
 		replay(manager);
+		
 		assertThat(controller.loadGame(folderName, fileName), is(equalTo(true)));
+		
 		verify(manager);
 		
 	}

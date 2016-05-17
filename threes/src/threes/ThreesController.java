@@ -284,7 +284,7 @@ public class ThreesController {
 		savemanager = m;
 	}
 
-	public boolean saveGame(String folderName, String fileName) throws IOException {
+	public boolean saveGame(String folderName, String fileName) throws IOException{
 		
 		try {
 			if (savemanager.setFolder(folderName) && !fileName.contains(".")) {
